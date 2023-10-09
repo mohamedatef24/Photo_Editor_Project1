@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1696365968 source:d:\d.m.s\projects & homework\photo editor -assignment1\bmplib.cpp
+	<stdio.h>
+	<iostream>
+	<cstdlib>
+	"bmplib.h"
+	"unistd.h"
+
+1696362599 d:\d.m.s\projects & homework\photo editor -assignment1\bmplib.h
+
+1696872475 source:d:\d.m.s\projects & homework\photo editor -assignment1\main.cpp
+	<iostream>
+	<cstring>
+	<cmath>
+	<algorithm>
+	"bmplib.h"
+
