@@ -1,5 +1,5 @@
 /*
-FCAI – OOP Programming – 2023 - Assignment 1
+FCAI â€“ OOP Programming â€“ 2023 - Assignment 1
 Program Name:				CS213-2023-20220293-20220361-20220186-A1-Part1.cpp
 Last Modification Date:	09/10/2023
 Author1 and ID and Group:	Mohamed Atef Mouad       20220293 mo7amed3atf24@gmail.com
@@ -168,32 +168,19 @@ typedef void (*ImageProcessingFunction)(bool);
 int main()
 {
     ImageProcessingFunction arr[16]={nullptr,Black_white,Neg_Image,Merge_image,Flip_image,Rotate_image,Darken_Lighten,Detect_Edges,Enlarge_Image,Shrink_image,mirror_image,Shuffle_image,BlurImage,CropImage,skewHorizontal,skewVertical};
-    string s;
     start:;
     short in=input();
     if (in >= 1 && in <= 15) {
-        cout << "\nYour photo is RGB or GS: ";
-        cin >> s;
-        bool par=false;
-        if (s == "RGB") {
-            loadImage();
-            readRGBBMP(imageFileName, imageRGB);
-        } else if (s == "GS") {
-            loadImage();
-            readGSBMP(imageFileName, imageGS);
-            par=true;
-        } else {
-            cout << "Invalid input!\n";
-            return 1;
-        }
+        bool par=1;
+        loadImage();
+        readGSBMP(imageFileName, imageGS);
         if (arr[in] != nullptr) {
             arr[in](par);
-            if(par) saveImage();
-            else saveImageRGB();
+            saveImage();
             cout<<"\ndo you wanna do another filter?(Y OR F): ";
             char cho;cin>>cho;
-            if(cho=='Y') goto start;
-            else if(cho=='F') cout<<"OK BYE!";
+            if(cho=='Y'||cho=='y') goto start;
+            else if(cho=='F'||cho=='f') cout<<"OK BYE!";
             else cout<<"INVALID INPUT!";
         } else {
             cout << "Invalid function selection!\n";
@@ -256,20 +243,17 @@ void Black_white(bool n)
         // Convert to black and white based on average intensities
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (imageRGB[i][j][0] > avgr)
+                if (imageRGB[i][j][0] > avgr||imageRGB[i][j][1] > avgg||imageRGB[i][j][2] > avgb){
                     imageRGB[i][j][0] = 255;
-                else if (imageRGB[i][j][0] < avgr)
-                    imageRGB[i][j][0] = 0;
-
-                if (imageRGB[i][j][1] > avgg)
                     imageRGB[i][j][1] = 255;
-                else if (imageRGB[i][j][1] < avgg)
-                    imageRGB[i][j][1] = 0;
-
-                if (imageRGB[i][j][2] > avgb)
                     imageRGB[i][j][2] = 255;
-                else if (imageRGB[i][j][2] < avgb)
+                }
+                else
+                {
+                    imageRGB[i][j][0] = 0;
+                    imageRGB[i][j][1] = 0;
                     imageRGB[i][j][2] = 0;
+                }
             }
         }
     } else {
@@ -1208,6 +1192,14 @@ void skewHorizontal(bool n) {
     // Initialize temporary arrays to store the skewed image
     unsigned char tmpImg[SIZE][SIZE]{};
     unsigned char tmpImgRGB[SIZE][SIZE][RGB]{};
+    for(int i=0;i<SIZE;i++)
+    {
+        for(int j=0;j<SIZE;j++)
+        {
+            tmpImg[i][j]=255;
+            for(int k=0;k<3;k++) tmpImgRGB[i][j][k]=255;
+        }
+    }
 
     // Calculate parameters for the skew transformation
     double toLeave = tan(skewAngle * M_PI / 180.0) * SIZE;
@@ -1294,6 +1286,14 @@ void skewVertical(bool n) {
     // Initialize temporary arrays to store the skewed image
     unsigned char tmpImg[SIZE][SIZE]{};
     unsigned char tmpImgRGB[SIZE][SIZE][RGB]{};
+     for(int i=0;i<SIZE;i++)
+    {
+        for(int j=0;j<SIZE;j++)
+        {
+            tmpImg[i][j]=255;
+            for(int k=0;k<3;k++) tmpImgRGB[i][j][k]=255;
+        }
+    }
 
     // Calculate parameters for the skew transformation
     double toLeave = tan(skewAngle * M_PI / 180.0) * SIZE;
