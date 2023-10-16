@@ -243,20 +243,17 @@ void Black_white(bool n)
         // Convert to black and white based on average intensities
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (imageRGB[i][j][0] > avgr)
+                if (imageRGB[i][j][0] > avgr||imageRGB[i][j][1] > avgg||imageRGB[i][j][2] > avgb){
                     imageRGB[i][j][0] = 255;
-                else if (imageRGB[i][j][0] < avgr)
-                    imageRGB[i][j][0] = 0;
-
-                if (imageRGB[i][j][1] > avgg)
                     imageRGB[i][j][1] = 255;
-                else if (imageRGB[i][j][1] < avgg)
-                    imageRGB[i][j][1] = 0;
-
-                if (imageRGB[i][j][2] > avgb)
                     imageRGB[i][j][2] = 255;
-                else if (imageRGB[i][j][2] < avgb)
+                }
+                else
+                {
+                    imageRGB[i][j][0] = 0;
+                    imageRGB[i][j][1] = 0;
                     imageRGB[i][j][2] = 0;
+                }
             }
         }
     } else {
